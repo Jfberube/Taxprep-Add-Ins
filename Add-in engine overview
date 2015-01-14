@@ -73,7 +73,6 @@ We may treat services and handlers as the links between the host application and
 
 The add-in engine is designed to keep both these references in the valid state. In other words the engine will automatically detect when the referenced object is released and clear the corresponding reference. If the host application or an add-in will try to access the released object an appropriate exception will be raised(thrown).
 
-
 To be more exact add-ins are not referring application services directly. The engine has a special internal *_AppServiceAdapter_* instance in the middle. Adapter classes are actually implements the required interfaces. They are also used to isolate the live time of the service objects and add-in reverences to it. Actually add-in may keep the reference even after the service has been released. It will get a proper exception if it tries to access the released service. 
 In other words all actual links between the add-in and host application are fully managed by the add-in engine. Thus the engine may release all links to the add-in handles when required same as it may detect memory leaks (all the services referenced by a specific add-in).
 
@@ -89,357 +88,343 @@ h2. EcchAddinException
 
 EcchAddinException is a base class for all add-in engine exceptions.
 
-<pre><code class="Delphi">
-  EcchAddinException = class(Exception)
-</code></pre>
+      EcchAddinException = class(Exception)
+    `</pre>
 
-h2. TCustomAddinEngine 
+    h2. TCustomAddinEngine 
 
-TCustomAddinEngine is a main class for the add-in engine. It loads and keeps the list of all available add-ins.
+    TCustomAddinEngine is a main class for the add-in engine. It loads and keeps the list of all available add-ins.
 
-<pre><code class="Delphi">
-  TCustomAddinEngine = class(TObject)
-</code></pre>
+    <pre>`
+      TCustomAddinEngine = class(TObject)
+    `</pre>
 
-h2. TCustomAddin
+    h2. TCustomAddin
 
-TCustomAddin encapsulates a properties of a single add-in module. Add-in engine keeps a separate instance of TCustomAddin class for each loaded add-in module.
+    TCustomAddin encapsulates a properties of a single add-in module. Add-in engine keeps a separate instance of TCustomAddin class for each loaded add-in module.
 
-<pre><code class="Delphi">
-  TCustomAddin = class(TObject)
-</code></pre>
+    <pre>`
+      TCustomAddin = class(TObject)
+    `</pre>
 
-h2. TCustomAppService
+    h2. TCustomAppService
 
-TCustomAppService is a base class for all add-in services. TCustomAppService descendants provide the functionality of the host application to the add-in modules.
+    TCustomAppService is a base class for all add-in services. TCustomAppService descendants provide the functionality of the host application to the add-in modules.
 
-There are two main service classes
-* TCustomAppGlobalService provides the functionality to the global application objects like Main Menu, Tax Application, Client File Manager, etc. 
-* TCustomAppLocalService provides the functionality to the local (add-in specific) application objects like Menu Item, Tax Cell, Client File, etc. 
+    There are two main service classes
+    * TCustomAppGlobalService provides the functionality to the global application objects like Main Menu, Tax Application, Client File Manager, etc. 
+    * TCustomAppLocalService provides the functionality to the local (add-in specific) application objects like Menu Item, Tax Cell, Client File, etc. 
 
-The main difference between the global and local services is its owner. All global services are owned by the add-in engine,
+    The main difference between the global and local services is its owner. All global services are owned by the add-in engine,
 
-!/attachments/download/347/EngineOverview.svg(EngineOverview.svg)!
+    !/attachments/download/347/EngineOverview.svg(EngineOverview.svg)!
 
-while all local services are usually owned by a specific add-in or one of it's own objects. Local services could be also used as a temporary objects to provide proper parameters to the add-in methods. Such services will be released after the add-in method is finished and a proper exception will be generated if the add-in will keep the reference to the parameters and try to access them later.
- 
-<pre><code class="Delphi">
-  TCustomAppService = class(TObject)
-  TCustomAppGlobalService = class(TCustomAppService)
-  TCustomAppLocalService = class(TCustomAppService)
-</code></pre>
+    while all local services are usually owned by a specific add-in or one of it's own objects. Local services could be also used as a temporary objects to provide proper parameters to the add-in methods. Such services will be released after the add-in method is finished and a proper exception will be generated if the add-in will keep the reference to the parameters and try to access them later.
 
+    <pre>`
+      TCustomAppService = class(TObject)
+      TCustomAppGlobalService = class(TCustomAppService)
+      TCustomAppLocalService = class(TCustomAppService)
+    `</pre>
 
-h2. TCustomAppLocalServiceList
+    h2. TCustomAppLocalServiceList
 
-TCustomAppLocalServiceList is a base class to keep the list of the local services. TCustomAppLocalServiceList has two descendants:
+    TCustomAppLocalServiceList is a base class to keep the list of the local services. TCustomAppLocalServiceList has two descendants:
 
-* TAppAddinLocalServiceList is used to keep the local services inside add-in instance
-* TAppChildLocalServiceList is used to keep a child local services inside another local service
+    * TAppAddinLocalServiceList is used to keep the local services inside add-in instance
+    * TAppChildLocalServiceList is used to keep a child local services inside another local service
 
-<pre><code class="Delphi">
-  TCustomAppLocalServiceList = class(TObject)
-  TAppAddinLocalServiceList = class(TCustomAppLocalServiceList)
-  TAppChildLocalServiceList = class(TCustomAppLocalServiceList)
-</code></pre>
+    <pre>`
+      TCustomAppLocalServiceList = class(TObject)
+      TAppAddinLocalServiceList = class(TCustomAppLocalServiceList)
+      TAppChildLocalServiceList = class(TCustomAppLocalServiceList)
+    `</pre>
 
+    h2. TAppLocalServiceRef
 
-h2. TAppLocalServiceRef
+    TAppLocalServiceRef is used to keep a reference to a local service in other objects. This class may be used if you need to keep a reference to a local service outside of the add-in engine (for example, in a menu item). Actually TAppLocalServiceRef class is used to automatically update (clear) the the reference to a local service before the service is destroyed.
 
-TAppLocalServiceRef is used to keep a reference to a local service in other objects. This class may be used if you need to keep a reference to a local service outside of the add-in engine (for example, in a menu item). Actually TAppLocalServiceRef class is used to automatically update (clear) the the reference to a local service before the service is destroyed.
+    <pre>`
+      TAppLocalServiceRef = class(TObject)
+    `</pre>
 
-<pre><code class="Delphi">
-  TAppLocalServiceRef = class(TObject)
-</code></pre>
+    h2. TCustomAppAdapter 
 
+    TCustomAppAdapter is a base class for all application adapters. TCustomAppAdapter descendants implements' all Taxprep interfaces provided to add-in modules.
 
-h2. TCustomAppAdapter 
+    <pre>`
+      TCustomAppAdapter = class(TInterfacedObject, IInternalGetService, ISupportErrorInfo)
+      TCustomAddinServiceAdapter = class(TCustomAppAdapter)
+    `</pre>
 
-TCustomAppAdapter is a base class for all application adapters. TCustomAppAdapter descendants implements' all Taxprep interfaces provided to add-in modules.
+    h2. TCustomAppInstanceAdapter
 
-<pre><code class="Delphi">
-  TCustomAppAdapter = class(TInterfacedObject, IInternalGetService, ISupportErrorInfo)
-  TCustomAddinServiceAdapter = class(TCustomAppAdapter)
-</code></pre>
+    TCustomAppInstanceAdapter implements the main application instance interface (a main entry point for the add-in modules).
+    Add-in may cast this interface to any specific global service.
 
-h2. TCustomAppInstanceAdapter
+    <pre>`
+      TCustomAppInstanceAdapter = class(TCustomAppAdapter, IUnknown)
+    `</pre>
 
-TCustomAppInstanceAdapter implements the main application instance interface (a main entry point for the add-in modules).
-Add-in may cast this interface to any specific global service.
+    h2. TCustomAddinServiceAdapter
 
-<pre><code class="Delphi">
-  TCustomAppInstanceAdapter = class(TCustomAppAdapter, IUnknown)
-</code></pre>
+    TCustomAddinServiceAdapter is a base class for all service adapters.
+    TCustomAddinServiceAdapter is an internal object, the descendant of this class should be hidden from the host application (declared in the implementation part of the unit with corresponding service).
 
-h2. TCustomAddinServiceAdapter
+    <pre>`
+      TCustomAddinServiceAdapter = class(TCustomAppAdapter)
+    `</pre>
 
-TCustomAddinServiceAdapter is a base class for all service adapters.
-TCustomAddinServiceAdapter is an internal object, the descendant of this class should be hidden from the host application (declared in the implementation part of the unit with corresponding service).
+    h2. TCustomAddinHandler
 
-<pre><code class="Delphi">
-  TCustomAddinServiceAdapter = class(TCustomAppAdapter)
-</code></pre>
+    TCustomAddinHandler is a base class to keep a handler (callback) interface provided by the add-in.
+    TCustomAddinHandler is an internal object, owned by the engine. The descendant of this class should be hidden from the host application (declared in the implementation part of the unit)
 
-h2. TCustomAddinHandler
+    <pre>`
+      TCustomAddinHandler = class(TObject)
+    `</pre>
 
-TCustomAddinHandler is a base class to keep a handler (callback) interface provided by the add-in.
-TCustomAddinHandler is an internal object, owned by the engine. The descendant of this class should be hidden from the host application (declared in the implementation part of the unit)
+    h2. TAddinHandlerRef
 
-<pre><code class="Delphi">
-  TCustomAddinHandler = class(TObject)
-</code></pre>
+    TAddinHandlerRef is used to keep a reference to a single handler instance inside the engine.
+    Usually TAddinHandlerRef class is used inside a local service created by the add-in which should provide a add-in callback top the host application.
 
-h2. TAddinHandlerRef
+    <pre>`
+      TAddinHandlerRef = class(TObject)
+    `</pre>
 
-TAddinHandlerRef is used to keep a reference to a single handler instance inside the engine.
-Usually TAddinHandlerRef class is used inside a local service created by the add-in which should provide a add-in callback top the host application.
+    h2. TCustomAddinHandlers
 
-<pre><code class="Delphi">
-  TAddinHandlerRef = class(TObject)
-</code></pre>
+    TCustomAddinHandlers is a base class to keep the list of the add-in handlers. Same as TCustomAddinHandler this class should be also hidden from the host application. 
+    Usually TCustomAddinHandlers are used within a global service (it requires to keep a separate handler per each add-in).
 
-h2. TCustomAddinHandlers
+    <pre>`
+      TCustomAddinHandlers = class(TObject)
+    `</pre>
 
-TCustomAddinHandlers is a base class to keep the list of the add-in handlers. Same as TCustomAddinHandler this class should be also hidden from the host application. 
-Usually TCustomAddinHandlers are used within a global service (it requires to keep a separate handler per each add-in).
+    h1. Add-in Initialization / Finalization
 
-<pre><code class="Delphi">
-  TCustomAddinHandlers = class(TObject)
-</code></pre>
+    h2. Overview
 
-h1. Add-in Initialization / Finalization
+    Add-in engine is developed to load any number of add-in modules. The list of add-in modules is loaded from the registry. Each add-in module should have its own registry key with a string *_FileName_* value which should specify a full file name of the add-in module.
 
-h2. Overview
+    For example, an add-in module for T1 application (T1Txp2014.exe) should create a _FileName_ value in
+    <pre>HKEY_CURRENT_USER\Software\CCH\T1 Taxprep 2014\Addins\AddinName</pre> where
+    * _"HKEY_CURRENT_USER\Software\CCH\T1 Taxprep 2014\"_ is the root application key (this name is defined in the application resources)
+    * _"Addins"_ is a root add-ins key
+    * _"AddinName"_ is a name of the add-in registry key. It should be a unique add-in identifier. For example you may generate a separate GUID for it.
 
-Add-in engine is developed to load any number of add-in modules. The list of add-in modules is loaded from the registry. Each add-in module should have its own registry key with a string *_FileName_* value which should specify a full file name of the add-in module.
+    Add-in engine is trying to load all add-in modules separately. If an exception occur while loading one add-in module user will see the Crash Report dialog and the engine will continue to load all the rest add-in modules.
 
-For example, an add-in module for T1 application (T1Txp2014.exe) should create a _FileName_ value in
-<pre>HKEY_CURRENT_USER\Software\CCH\T1 Taxprep 2014\Addins\AddinName</pre> where
-* _"HKEY_CURRENT_USER\Software\CCH\T1 Taxprep 2014\"_ is the root application key (this name is defined in the application resources)
-* _"Addins"_ is a root add-ins key
-* _"AddinName"_ is a name of the add-in registry key. It should be a unique add-in identifier. For example you may generate a separate GUID for it.
+    h2. Initialization
 
-Add-in engine is trying to load all add-in modules separately. If an exception occur while loading one add-in module user will see the Crash Report dialog and the engine will continue to load all the rest add-in modules.
+    To perform the handshake between the host application and add-in module the module (a DLL libray) should export a special (“GetAddinInstance”) function. While loading the add-in library the host application checks that the dll library exports the function and call it to initialize the add-in module.
 
+    The function should have next signature 
+    <pre>`
+    function GetAddinInstance(const AAppInstance: IAppInstance; out AAddinInstance: IAddinInstance): HResult; stdcall;
+    `</pre>
 
-h2. Initialization
+    C# equivalent should look like 
+    <pre>`[DllExport("GetAddinInstance", CallingConvention = CallingConvention.StdCall)]
+    [return: MarshalAs(UnmanagedType.I4)]
+    public static int GetAddinInstance([In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(AddinMarshaler))]IAppInstance appInstance, out IAddinInstance addinInstance)
+    `</pre>
 
-To perform the handshake between the host application and add-in module the module (a DLL libray) should export a special (“GetAddinInstance”) function. While loading the add-in library the host application checks that the dll library exports the function and call it to initialize the add-in module.
+    *NB* Visual Studio treat the interfaces provided by the add-in engine as COM objects by default so it may show some "DisconnectedContext" messages during add-in debugging. To avoid these messages a custom marshaler should be used for for the initialization function in .NET.
 
-The function should have next signature 
-<pre><code class="Delphi">
-function GetAddinInstance(const AAppInstance: IAppInstance; out AAddinInstance: IAddinInstance): HResult; stdcall;
-</code></pre>
+    If the function succeeded it should return S_OK result and an interface to initialized add-in instance in the AAddinInstance parameter.
+    If the function fails it should return a corresponding HResult. To provide the proper error message to the host application the function should initialize the "error information object for the current thread":http://msdn.microsoft.com/en-us/library/aa910593.aspx.
 
+    h2. Finalization
 
-C# equivalent should look like 
-<pre><code class="C++">[DllExport("GetAddinInstance", CallingConvention = CallingConvention.StdCall)]
-[return: MarshalAs(UnmanagedType.I4)]
-public static int GetAddinInstance([In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(AddinMarshaler))]IAppInstance appInstance, out IAddinInstance addinInstance)
-</code></pre>
+    Add-in engine calls *_ReleaseApp_* and *_ReleaseAddinInstance_* procedures before add-in is unloaded. 
 
-*NB* Visual Studio treat the interfaces provided by the add-in engine as COM objects by default so it may show some "DisconnectedContext" messages during add-in debugging. To avoid these messages a custom marshaler should be used for for the initialization function in .NET.
+    _ReleaseApp_ is a method of the add-in instance. It allows the add-in to to release all the references to the host application interfaces. In most cases you may leave this method empty as the all the references are kept inside the add-in instance so they will be released automatically after the add-in instance is released.
 
+    _ReleaseAddinInstance_ is an optional function which may be exported by the add-in DLL. Add-in engine calls it after the reference to the add-in instance has been released.  In most cases the function should be used to wait for the garbage collector to actually release all objects.
 
-If the function succeeded it should return S_OK result and an interface to initialized add-in instance in the AAddinInstance parameter.
-If the function fails it should return a corresponding HResult. To provide the proper error message to the host application the function should initialize the "error information object for the current thread":http://msdn.microsoft.com/en-us/library/aa910593.aspx.
+    This function should have next signature
 
-h2. Finalization
+    *Delphi*
+    <pre>`
+    function ReleaseAddinInstance: HResult; stdcall;
+    `</pre>
 
-Add-in engine calls *_ReleaseApp_* and *_ReleaseAddinInstance_* procedures before add-in is unloaded. 
+    *C#*
+    <pre>`
+    [DllExport("ReleaseAddinInstance", CallingConvention = CallingConvention.StdCall)]
+    [return: MarshalAs(UnmanagedType.I4)]
+    public static int ReleaseAddinInstance()
+    `</pre>
 
-_ReleaseApp_ is a method of the add-in instance. It allows the add-in to to release all the references to the host application interfaces. In most cases you may leave this method empty as the all the references are kept inside the add-in instance so they will be released automatically after the add-in instance is released.
+    *NB* Ad-in engine will call the add-in finalization procedures even if the add-in was not initialized successfully
 
+    h1. Implementing a .NET Add-in
 
-_ReleaseAddinInstance_ is an optional function which may be exported by the add-in DLL. Add-in engine calls it after the reference to the add-in instance has been released.  In most cases the function should be used to wait for the garbage collector to actually release all objects.
+    h2. Overview
 
-This function should have next signature
+    To create a new add-in module you should
+    * Create a new Class Library project
+    * Add UnmanagedExports package
+    * *[[CopyTaxprepAddinAPI|Copy]]* and add a reference to TaxprepAddinAPI library
+    * Implement AddinInstance class
+    * Implement Initialization/Finalization procedures
+    * Implement Assembly Resolve fix (optional)
 
-*Delphi*
-<pre><code class="Delphi">
-function ReleaseAddinInstance: HResult; stdcall;
-</code></pre>
+    *NB* You may find a sample add-in implementation in the VSAddinTest\VSEmptyTest folder of the Taxprep repository.
 
-*C#*
-<pre><code class="C++">
-[DllExport("ReleaseAddinInstance", CallingConvention = CallingConvention.StdCall)]
-[return: MarshalAs(UnmanagedType.I4)]
-public static int ReleaseAddinInstance()
-</code></pre>
+    h2. Create a new Class Library project
 
-*NB* Ad-in engine will call the add-in finalization procedures even if the add-in was not initialized successfully
+    Start Visual Studio and create a new Class Library project
 
-h1. Implementing a .NET Add-in
+    h2. Add UnmanagedExports package
 
-h2. Overview
+    A C# project cannot export an unmanaged DLL function by default. To achieve the required behavior we are using a "UnmanagedExports package":https://www.nuget.org/packages/UnmanagedExports/1.2.6 to the project 
 
-To create a new add-in module you should
-* Create a new Class Library project
-* Add UnmanagedExports package
-* *[[CopyTaxprepAddinAPI|Copy]]* and add a reference to TaxprepAddinAPI library
-* Implement AddinInstance class
-* Implement Initialization/Finalization procedures
-* Implement Assembly Resolve fix (optional)
+    To install the package you may press "Manage NuGet packages" command from the project context menu,enter "UnmanagedExports" in the "Search online" editor and press Install button near the required package.
 
-*NB* You may find a sample add-in implementation in the VSAddinTest\VSEmptyTest folder of the Taxprep repository.
+    h2. Add a reference to TaxprepAddinAPI library
 
-h2. Create a new Class Library project
+    Please, run the *Tools\TaxprepAddinAPI\GenCSharpDll.bat* to generate the library and add the library reference it to the project.
 
-Start Visual Studio and create a new Class Library project
+    *NB* the library will be generated in the *bin* folder (Tools\TaxprepAddinAPI\bin\TaxprepAddinAPI.dll)
 
-h2. Add UnmanagedExports package
+    h2. Implement AddinInstance class
 
-A C# project cannot export an unmanaged DLL function by default. To achieve the required behavior we are using a "UnmanagedExports package":https://www.nuget.org/packages/UnmanagedExports/1.2.6 to the project 
+    Add a new AddinInstance class to the project. 
+    The class should implement the IAddinInstance interface.
 
-To install the package you may press "Manage NuGet packages" command from the project context menu,enter "UnmanagedExports" in the "Search online" editor and press Install button near the required package.
+    For example you may use next code
+    <pre>`
+    private static readonly Guid AddinKey = new Guid(<Generate a new GUID here>);
 
-h2. Add a reference to TaxprepAddinAPI library
+    public Guid Key { get { return AddinKey; } }
+    public string Name { get { return <Put add-in name here>; } }
+    public string Version { get { return "1.0.0.0"; } }
 
-Please, run the *Tools\TaxprepAddinAPI\GenCSharpDll.bat* to generate the library and add the library reference it to the project.
-
-*NB* the library will be generated in the *bin* folder (Tools\TaxprepAddinAPI\bin\TaxprepAddinAPI.dll)
-
-
-h2. Implement AddinInstance class
-
-Add a new AddinInstance class to the project. 
-The class should implement the IAddinInstance interface.
-
-For example you may use next code
-<pre><code class="C++">
-private static readonly Guid AddinKey = new Guid(<Generate a new GUID here>);
-
-public Guid Key { get { return AddinKey; } }
-public string Name { get { return <Put add-in name here>; } }
-public string Version { get { return "1.0.0.0"; } }
-
-public void ReleaseApp()
-{
-    // do nothing
-}
-</code></pre>
-
-*NB* Please do not forget to generate a new GUID for add-in key
-
-
-h2. Implement Initialization/Finalization procedures
-
-
-Implement a custom marshaler to avoid "DisconnectedContext" messages during add-in debugging
-<pre><code class="C++">
-public class AddinMarshaler : ICustomMarshaler
-{
-    private static readonly AddinMarshaler Instance;
-
-    static AddinMarshaler()
+    public void ReleaseApp()
     {
-        Instance = new AddinMarshaler();
+        // do nothing
     }
+    `</pre>
 
-    // return the static instance
-    public static ICustomMarshaler GetInstance(string cookie)
+    *NB* Please do not forget to generate a new GUID for add-in key
+
+    h2. Implement Initialization/Finalization procedures
+
+    Implement a custom marshaler to avoid "DisconnectedContext" messages during add-in debugging
+    <pre>`
+    public class AddinMarshaler : ICustomMarshaler
     {
-        return Instance;
-    }
+        private static readonly AddinMarshaler Instance;
 
-    public void CleanUpManagedData(object managedObj)
+        static AddinMarshaler()
+        {
+            Instance = new AddinMarshaler();
+        }
+
+        // return the static instance
+        public static ICustomMarshaler GetInstance(string cookie)
+        {
+            return Instance;
+        }
+
+        public void CleanUpManagedData(object managedObj)
+        {
+        }
+
+        public void CleanUpNativeData(IntPtr pNativeData)
+        {
+        }
+
+        public int GetNativeDataSize()
+        {
+            return 4;
+        }
+
+        public IntPtr MarshalManagedToNative(object managedObj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object MarshalNativeToManaged(IntPtr pNativeData)
+        {
+            return Marshal.GetObjectForIUnknown(pNativeData);
+        }
+    }
+    `</pre>
+
+    Now you may implement the add-in initialization procedure
+    <pre>`
+    [DllExport("GetAddinInstance", CallingConvention = CallingConvention.StdCall)]
+    [return: MarshalAs(UnmanagedType.I4)]
+    public static int GetAddinInstance([In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(AddinMarshaler))]IAppInstance appInstance, out IAddinInstance addinInstance)
     {
-    }
+        try
+        {
+            addinInstance = new AddinInstance(appInstance);
 
-    public void CleanUpNativeData(IntPtr pNativeData)
+            return 0;
+        }
+        catch (Exception error)
+        {
+            addinInstance = null;
+            return Marshal.GetHRForException(error);
+        }
+    }
+    `</pre>
+
+    .NET does not release the interfaces immediately so the finalization procedure is also required
+    <pre>`
+    [DllExport("ReleaseAddinInstance", CallingConvention = CallingConvention.StdCall)]
+    [return: MarshalAs(UnmanagedType.I4)]
+    public static int ReleaseAddinInstance()
     {
-    }
+        try
+        {
+            // !!! make sure all interfaces are released by garbage collector
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
-    public int GetNativeDataSize()
+            return 0;
+        }
+        catch (Exception error)
+        {
+            return Marshal.GetHRForException(error);
+        }
+    }
+    `</pre>
+
+    h2. Implement Assembly Resolve fix (optional)
+
+    In case your add-in module depends on other assemblies you may need to implement the assembly resolve fix.
+    The below procedure allows to find .NET assemblies located in the same folder with the add-in module.
+    You may need to modify this procedure according to your needs.
+
+    <pre>`
+    private static Assembly DoAssemblyResolve(Object sender, ResolveEventArgs e)
     {
-        return 4;
+        var lSearchPath = System.IO.Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+        if (lSearchPath == null)
+            return null;
+
+        var lFullFileName = System.IO.Path.Combine(System.IO.Path.GetFullPath(lSearchPath), new AssemblyName(e.Name).Name) + ".dll";
+        if (!System.IO.File.Exists(lFullFileName))
+            return null;
+
+        var lAssemblyFullName = AssemblyName.GetAssemblyName(lFullFileName).FullName;
+
+        if (String.Compare(lAssemblyFullName, e.Name, StringComparison.CurrentCultureIgnoreCase) != 0)
+            return null;
+
+        return Assembly.LoadFrom(lFullFileName);
     }
+    `</pre>
 
-    public IntPtr MarshalManagedToNative(object managedObj)
-    {
-        throw new NotImplementedException();
-    }
-
-    public object MarshalNativeToManaged(IntPtr pNativeData)
-    {
-        return Marshal.GetObjectForIUnknown(pNativeData);
-    }
-}
-</code></pre>
-
-
-Now you may implement the add-in initialization procedure
-<pre><code class="C++">
-[DllExport("GetAddinInstance", CallingConvention = CallingConvention.StdCall)]
-[return: MarshalAs(UnmanagedType.I4)]
-public static int GetAddinInstance([In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(AddinMarshaler))]IAppInstance appInstance, out IAddinInstance addinInstance)
-{
-    try
-    {
-        addinInstance = new AddinInstance(appInstance);
-
-        return 0;
-    }
-    catch (Exception error)
-    {
-        addinInstance = null;
-        return Marshal.GetHRForException(error);
-    }
-}
-</code></pre>
-
-
-.NET does not release the interfaces immediately so the finalization procedure is also required
-<pre><code class="C++">
-[DllExport("ReleaseAddinInstance", CallingConvention = CallingConvention.StdCall)]
-[return: MarshalAs(UnmanagedType.I4)]
-public static int ReleaseAddinInstance()
-{
-    try
-    {
-        // !!! make sure all interfaces are released by garbage collector
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
-
-        return 0;
-    }
-    catch (Exception error)
-    {
-        return Marshal.GetHRForException(error);
-    }
-}
-</code></pre>
-
-h2. Implement Assembly Resolve fix (optional)
-
-In case your add-in module depends on other assemblies you may need to implement the assembly resolve fix.
-The below procedure allows to find .NET assemblies located in the same folder with the add-in module.
-You may need to modify this procedure according to your needs.
-
-<pre><code class="C++">
-private static Assembly DoAssemblyResolve(Object sender, ResolveEventArgs e)
-{
-    var lSearchPath = System.IO.Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-    if (lSearchPath == null)
-        return null;
-
-    var lFullFileName = System.IO.Path.Combine(System.IO.Path.GetFullPath(lSearchPath), new AssemblyName(e.Name).Name) + ".dll";
-    if (!System.IO.File.Exists(lFullFileName))
-        return null;
-
-    var lAssemblyFullName = AssemblyName.GetAssemblyName(lFullFileName).FullName;
-
-    if (String.Compare(lAssemblyFullName, e.Name, StringComparison.CurrentCultureIgnoreCase) != 0)
-        return null;
-
-    return Assembly.LoadFrom(lFullFileName);
-}
-</code></pre>
-
-And do not forget to add next line to the initialization procedure
-<pre><code class="C++">
-AppDomain.CurrentDomain.AssemblyResolve += DoAssemblyResolve;
-</code></pre>
+    And do not forget to add next line to the initialization procedure
+    <pre>`
+    AppDomain.CurrentDomain.AssemblyResolve += DoAssemblyResolve;
 
 h1. Exception handling
 
@@ -448,7 +433,6 @@ Add-in engine assumes that both add-in and host application interfaces are imple
 The required behavior is automatically implemented by both Delphi and .NET environments so no extra code is required.
 
 *NB* Delphi may not generate the proper error message if we try to access the field of an unassigned(nil) object. Add-in engine do perform all required checks to avoid this but if the issue will occur inside the existing Taxprep code you may still get a wrong error message "Catastrophic failure (Exception from HRESULT: 0x8000FFFF (E_UNEXPECTED))"
-
 
 h1. .NET DLL loading
 
