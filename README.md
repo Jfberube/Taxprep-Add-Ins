@@ -1,5 +1,4 @@
-# Taxprep-Add-Ins
-Taxprep Add-Ins Documentation
+# Taxprep-Add-Ins Documentation
 
 To Intall Taxprep:
 - [Taxprep T1 Setup] (static.isolutionslab.com/TaxprepSDK/TXPT1102014.exe) unlock code : 68HG-A4HF-CCD8-B289
