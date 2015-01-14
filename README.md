@@ -1,6 +1,6 @@
-# Taxprep-Add-Ins Documentation
+# Taxprep-Add-Ins
 
-The main goal consists of developing a function bootstrap in the external system to be able to connect an external interface with the Taxprep application. Taxprep will be responsible to load the external Add-in. The end result may look (but is not limited to) to the Microsoft Office Add-In architecture.
+The Add-in is a function bootstrap in the external system to be able to connect an external interface with the Taxprep application. Taxprep will be responsible to load the external Add-in. The end result may look (but is not limited to) to the Microsoft Office Add-In architecture.
 
 Here are some important assumptions for the Add-in engine
 - Add-in module can be installed without admin rights (is not located in the application folder, registered for the specific user, etc.)
@@ -14,3 +14,6 @@ To Intall Taxprep:
 - [Taxprep T2 Setup] (static.isolutionslab.com/TaxprepSDK/TXPT2202014.exe) unlock code : B42D-FBH3-8F7G-845D
 
 For any questions, [please click here] (https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/issues/new)
+
+Taxprep Add-Ins Documentation
+
