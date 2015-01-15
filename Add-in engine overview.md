@@ -4,8 +4,6 @@
 
 The main goal consists of developing a function bootstrap in the external system to be able to connect an external interface with the Taxprep application. Taxprep will be responsible to load the external Add-in. The end result may look (but is not limited to) to the Microsoft Office Add-In architecture.
 
-The initial SOW can be found here: "MNP - Taxprep Add-in SOW 2014 V2.docx":https://isolutionslab.com/attachments/download/335/MNP%20-%20Taxprep%20Add-in%20SOW%202014%20V2.docx
-
 Here are some important assumptions we rely in the Add-in engine
 * Add-in module can be installed without admin rights (is not located in the application folder, registered for the specific user, etc.)
 * Add-in works in the same thread with the host application[1]
