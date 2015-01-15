@@ -28,7 +28,7 @@ To describe the architecture we need to define two basic entities: *_add-in host
 
 *_Add-in engine_* is the part of the host application, which implements all the required functionality to support add-in modules. Actually, you may treat the engine as a broker between the host application and add-in module (see the picture).
 
-!/attachments/download/350/Intoduction.svg(Intoduction.svg)!
+![image](https://cloud.githubusercontent.com/assets/5232449/5759399/ae6d2a64-9c9b-11e4-9ed3-73fdef15a61e.png)
 
 As you could see the objects of the host application (main menu, tax return, etc.) have no access to the add-in modules same as the add-in modules has no direct access to the objects of the host application. 
 It is the responsibility of the add-in engine to supervise the communication between the host application and add-in module(s).
