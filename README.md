@@ -14,3 +14,8 @@ For any questions, [please click here] (https://github.com/Wolters-Kluwer-Canada
 
 Taxprep Add-Ins Documentation
 
+LICENSE
+------------
+Copyright 2015 Wolters Kluwer Limited<br/>
+
+Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
