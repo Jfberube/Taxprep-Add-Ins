@@ -19,7 +19,7 @@ fn1. Add-in itself may have any number of threads, but it is the add-in responsi
 
 fn2. Add-in may show a modal dialog while an add-in method is running but the dialog should be closed before the control is returned to the host application. A modeless UI should be implemented in a separate application
 
-## Introduction
+## Introdu ction
 
 This WIKI page is addressed to the host application developers, who needs to maintain and/or extend the Add-in engine within Taxprep applications. 
 It could be also useful for the add-in developers to understand the existing add-in architecture. 
