@@ -12,6 +12,9 @@ A framework to extend the various Taxprep applications. Somehow similar to the M
 
 For any questions, [please click here] (https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/issues/new)
 
+####Taxprep T2 Example return files:http://static.isolutionslab.com/TaxprepSDK/Taxprep+T2+Files/
+- http://static.isolutionslab.com/TaxprepSDK/Taxprep+T2+Files/Cas+1.214
+
 ###Taxprep Add-In Documentations:
 
 - [Intruction on how to create your first Taxprep Add-in ](https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/blob/master/How%20to%20create%20a%20new%20add-in.md)
