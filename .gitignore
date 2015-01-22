@@ -1,0 +1,44 @@
+/Examples/UnitTestAddin/TxpAddinLibrary/bin/Debug
+/Examples/UnitTestAddin/TxpAddinLibrary/bin/x86/Debug
+/Examples/UnitTestAddin/TxpAddinLibrary/bin/x86/Release
+/Examples/UnitTestAddin/TxpAddinLibrary/obj/Debug
+/Examples/UnitTestAddin/TxpAddinLibrary/obj/x86/Debug
+/Examples/UnitTestAddin/TxpAddinLibrary/obj/x86/Release
+/Examples/UnitTestAddin/UnitTestHost/bin/x86/Debug
+/Examples/UnitTestAddin/UnitTestHost/obj/x86/Debug
+/Examples/UnitTestAddin/UnitTestHost/obj/x86/Release
+/Examples/UnitTestAddin/*.suo
+/Examples/UnitTestAddin/VSUnitTestAddin/*.user
+/Examples/UnitTestAddin/VSUnitTestAddin/obj/x86/Debug
+/Examples/UnitTestAddin/VSUnitTestAddin/obj/x86/Release
+/Examples/UnitTestAddin/VSUnitTests/bin/x86/Debug
+/Examples/UnitTestAddin/VSUnitTests/bin/x86/Release
+/Examples/UnitTestAddin/VSUnitTests/obj/x86/Debug
+/Examples/UnitTestAddin/VSUnitTests/obj/x86/Release
+/Examples/UnitTestAddin/bin/UnitTestHost
+/Examples/UnitTestAddin/bin/VSUnitTestAddin
+/Examples/UnitTestAddin/packages
+/Examples/VSAddin Test/TxpAddinLibrary/bin/Debug
+/Examples/VSAddin Test/TxpAddinLibrary/bin/x86/Debug
+/Examples/VSAddin Test/TxpAddinLibrary/bin/x86/Release
+/Examples/VSAddin Test/TxpAddinLibrary/obj/Debug
+/Examples/VSAddin Test/TxpAddinLibrary/obj/x86/Debug
+/Examples/VSAddin Test/TxpAddinLibrary/obj/x86/Release
+/Examples/VSAddin Test/VSAddinTest.UI/obj/x86/Debug
+/Examples/VSAddin Test/VSAddinTest.UI/obj/x86/Release
+/Examples/VSAddin Test/*.suo
+/Examples/VSAddin Test/VSAddinTest/*.user
+/Examples/VSAddin Test/VSAddinTest/obj/x86/Debug
+/Examples/VSAddin Test/VSAddinTest/obj/x86/Release
+/Examples/VSAddin Test/bin/VSAddinTest.UI
+/Examples/VSAddin Test/bin/VSAddinTest
+/Examples/VSAddin Test/packages
+/Examples/EmptyAddin/*.user
+/Examples/EmptyAddin/*.suo
+/Examples/EmptyAddin/bin/Debug
+/Examples/EmptyAddin/obj/Debug
+/Examples/EmptyAddin/packages
+/Tools/AddinReg/*.suo
+/Tools/AddinReg/AddinReg/*.user
+/Tools/AddinReg/AddinReg/bin/Debug
+/Tools/AddinReg/AddinReg/obj/Debug

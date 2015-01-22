@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29683531-5E1B-4267-B187-81FDDFBF9816}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VSUnitTests</RootNamespace>
+    <AssemblyName>VSUnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TaxprepAddinAPI">
+      <HintPath>..\..\..\api\bin\TaxprepAddinAPI.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\lib\handlers\AppIdleHandler.cs">
+      <Link>lib\AppIdleHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\AppNotifyHandler.cs">
+      <Link>lib\AppNotifyHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\AfterChangeHeaderPropertyHandler.cs">
+      <Link>lib\AfterChangeHeaderPropertyHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\AfterChangeNameHandler.cs">
+      <Link>lib\AfterChangeNameHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\AfterSaveHandler.cs">
+      <Link>lib\AfterSaveHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\BeforeChangeNameHandler.cs">
+      <Link>lib\BeforeChangeNameHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\BeforeCurrentDocumentChangeHandler.cs">
+      <Link>lib\BeforeCurrentDocumentChangeHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\BeforeReturnStatusChangeHandler.cs">
+      <Link>lib\BeforeReturnStatusChangeHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\BeforeSaveHandler.cs">
+      <Link>lib\BeforeSaveHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\clientfile\ClientFileNotifyWithDocumentHandler.cs">
+      <Link>lib\ClientFileNotifyWithDocumentHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\databaseenv\AfterAcceptUserInput.cs">
+      <Link>lib\AfterAcceptUserInput.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\databaseenv\BeforeCalcHandler.cs">
+      <Link>lib\BeforeCalcHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\databaseenv\NotifyWithGroupArray.cs">
+      <Link>lib\NotifyWithGroupArray.cs</Link>
+    </Compile>
+    <Compile Include="..\lib\handlers\modulemanager\NotifyHandler.cs">
+      <Link>lib\NotifyHandler.cs</Link>
+    </Compile>
+    <Compile Include="ClientFileEvents.cs" />
+    <Compile Include="ClientFileManager.cs" />
+    <Compile Include="ClientFileTests.cs" />
+    <Compile Include="ConfigurationTests.cs" />
+    <Compile Include="ClientLetters.cs" />
+    <Compile Include="TaxReturn.cs" />
+    <Compile Include="UFL.cs" />
+    <Compile Include="DataBaseEnvEvents.cs" />
+    <Compile Include="DiagnosticTests.cs" />
+    <Compile Include="MenuTests.cs" />
+    <Compile Include="ModuleManagerTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaxApplicationTests.cs" />
+    <Compile Include="TestHost.cs" />
+    <Compile Include="UnitTestDemo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnitTestHost\UnitTestHost.csproj">
+      <Project>{f0926eab-40f8-4c6c-be51-0364f14153e9}</Project>
+      <Name>UnitTestHost</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
