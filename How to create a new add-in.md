@@ -1,6 +1,6 @@
 # Overview
 
-As each add-in have to be signed with iSolutions certificate, developers could use the Proxy add-in wrapper. 
+As each add-in have to be signed with a code signing certificate, developers could use the Proxy add-in wrapper to create and test their own Add-in. 
 
 ## Using proxy add-in to develop the new add-in
 
