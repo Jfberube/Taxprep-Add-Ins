@@ -12,7 +12,21 @@ A framework to extend the various Taxprep applications. Somehow similar to the M
 
 For any questions, [please click here] (https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/issues/new)
 
-Taxprep Add-Ins Documentation
+Taxprep Add-In Documentations:
+
+- [Intruction on how to create your first Taxprep Add-in ](https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/blob/master/How%20to%20create%20a%20new%20add-in.md)
+
+- [Information about the Calc API or how to query mostly eveything about a TaxReturn host by the Taxprep Software ](https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/blob/master/CalcAPI.md)
+
+- [Information on how to implement a custom Drag from the Taxprep Software ](https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/blob/master/DragAndDropAPI.md)
+
+Source code:
+
+  - \Examples\ contains a blank Add-in, a sample test Add-in and a unit test Add-in supporting the MSTest framework
+  - \Tools\ contains the source code to facilitate the regisration of an Add-in
+  - \API\ contain the wrapper arround the COM compatible interface privide by Taxprep and used by the various c# samples application. An Add-in could also be implemented by using an unmanage pprogramming language (e.g.: C++, Delphi).
+  - \bin\ contains the Add-in stub to allow to load of custom Add-in into the Taxprep software.
+
 
 LICENSE
 ------------
