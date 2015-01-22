@@ -10,12 +10,40 @@ The compiled binaries for the proxy add-in is locating in :
 
 Each developed add-in is assigned to the apropriate TaxPrep Unlock Code and have to be registered with iSolutions.
 
-Repository contains the pre-registered proxy add-ins:
+Each add-in from the Examples folder are registering itself with the ProxyAddin. This is done by using the post-build events in VisualStudio. For example for "Hello world" add-in:
 
-1. For T1 (unlock code is 68HG-A4HF-CCD8-B289):
-`<repositorypath>\Addins\bin\ProxyAddin\Registered\T1\68HG-A4HF-CCD8-B289\`
-2. For T1 (unlock code is B42D-FBH3-8F7G-845D):
-`<repositorypath>\Addins\bin\ProxyAddin\Registered\T2\B42D-FBH3-8F7G-845D\`
+> cmd /c copy /y "$(ProjectDir)..\..\bin\ProxyAddin\1.0.0.0\*.*" "$(TargetDir)"
+> 
+> "$(ProjectDir)..\..\api\AddinReg.exe" "T1 Taxprep 2014" -register -p $(ProjectName) "Empty hello world add-in example via ProxyAddin" "26A2ECE8-ED75-47B9-8797-32B3C0D227A8" "1.0.0.0" "$(TargetPath)" "$(TargetDir)VSProxy.dll" 
+> 
+> "$(ProjectDir)..\..\api\AddinReg.exe" "T2 Taxprep 2014-2" -register -p "$(ProjectName)" "Empty hello world add-in example via ProxyAddin" "26A2ECE8-ED75-47B9-8797-32B3C0D227A8" "1.0.0.0" "$(TargetPath)" "$(TargetDir)VSProxy.dll"
+
+First command copied the proxy add-in to the project build folder. Next two commands registered it with the TaxPrep T1 and TaxPrep T1-2.
+
+To register your own add-in please use the AddinReg.exe tool, which is located in the `api\` folder. The parameters are following:
+
+> 
+> d:\isolution\Addins\api>AddinReg.exe
+> 
+> Usage:
+> 
+>   For signed add-ins:
+>   
+>     AddinReg.exe <Application[-c] -register|-unregister AddinShortName AddinDllPath
+> 
+>   For proxy add-ins:
+>     
+>     AddinReg.exe <Application[-c] -register|-unregister -p AddinShortName AddinName AddinGuid AddinVersion AddinDllPath AddinProxyDllPath 
+>     
+>   Use "-c" to clear the list of registered add-ins.
+>   
+>   Application:
+>   
+>     "T1 Taxprep 2014"
+>     "T2 Taxprep 2014-1"
+>     ...
+>     "Taxprep Forms 2014"
+>     
 
 
 ### Creating a "hello world" add-in ###
