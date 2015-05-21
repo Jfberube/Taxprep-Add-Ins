@@ -23,6 +23,8 @@ For any questions, [please click here] (https://github.com/Wolters-Kluwer-Canada
 
 - [Information on how to implement a custom Drag from the Taxprep Software ](https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/blob/master/DragAndDropAPI.md)
 
+- [Information on how use the Loader.dll to use add-in without the Unmanaged Exports package](https://github.com/Wolters-Kluwer-Canada/Taxprep-Add-Ins/blob/master/Loader.md)
+
 Source code:
 
   - \Examples\ contains a blank Add-in, a sample test Add-in and a unit test Add-in supporting the MSTest framework
