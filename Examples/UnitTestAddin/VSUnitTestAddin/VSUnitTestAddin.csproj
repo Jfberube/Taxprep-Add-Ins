@@ -94,9 +94,7 @@
   <PropertyGroup>
     <PostBuildEvent>cmd /c copy /y "$(SolutionDir)..\..\bin\ProxyAddin\1.0.0.0\*.*" "$(TargetDir)"
 
-"$(SolutionDir)..\..\api\AddinReg.exe" "T1 Taxprep 2014" -register -p $(ProjectName) "Empty hello world add-in example via ProxyAddin" "26A2ECE8-ED75-47B9-8797-32B3C0D227A8" "1.0.0.0" "$(TargetPath)" "$(TargetDir)VSProxy.dll" 
-
-"$(SolutionDir)..\..\api\AddinReg.exe" "T2 Taxprep 2014-2" -register -p "$(ProjectName)" "Empty hello world add-in example via ProxyAddin" "26A2ECE8-ED75-47B9-8797-32B3C0D227A8" "1.0.0.0" "$(TargetPath)" "$(TargetDir)VSProxy.dll"</PostBuildEvent>
+call "$(SolutionDir)AddinReg.bat"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
