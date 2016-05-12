@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{388178F8-D042-4129-936A-73D56FA3C909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.AddIn", "UnitTest.AddIn\UnitTest.AddIn.csproj", "{1F5B187F-05AA-445C-AA80-155831B0506F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{936BC41F-F0E1-43DA-B948-2CD884174113} = {936BC41F-F0E1-43DA-B948-2CD884174113}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld.AddIn", "HelloWorld.AddIn\HelloWorld.AddIn.csproj", "{A415C9E9-7199-42F7-941D-BBA0917066F8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{936BC41F-F0E1-43DA-B948-2CD884174113} = {936BC41F-F0E1-43DA-B948-2CD884174113}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.UI", "Sample.UI\Sample.UI.csproj", "{A68F617F-595E-4FC4-96AC-93A36CCB3A4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.AddIn", "Sample.AddIn\Sample.AddIn.csproj", "{E18B683F-B255-4B63-A627-A85429650F73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{936BC41F-F0E1-43DA-B948-2CD884174113} = {936BC41F-F0E1-43DA-B948-2CD884174113}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Host", "UnitTest.Host\UnitTest.Host.csproj", "{F0926EAB-40F8-4C6C-BE51-0364F14153E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Test", "UnitTest.Test\UnitTest.Test.csproj", "{29683531-5E1B-4267-B187-81FDDFBF9816}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WKCA.AddIn", "Common\WKCA.AddIn\WKCA.AddIn.csproj", "{D4FCDA95-0FA5-40DB-8065-82EAA21BEB79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{45DEE601-D833-4AA2-B052-360B7FDEDD97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddinRegistration", "Tool\AddinRegistration\AddinRegistration.csproj", "{936BC41F-F0E1-43DA-B948-2CD884174113}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F5B187F-05AA-445C-AA80-155831B0506F}.Debug|x86.ActiveCfg = Dev|x86
+		{1F5B187F-05AA-445C-AA80-155831B0506F}.Debug|x86.Build.0 = Dev|x86
+		{A415C9E9-7199-42F7-941D-BBA0917066F8}.Debug|x86.ActiveCfg = Dev|x86
+		{A415C9E9-7199-42F7-941D-BBA0917066F8}.Debug|x86.Build.0 = Dev|x86
+		{A68F617F-595E-4FC4-96AC-93A36CCB3A4C}.Debug|x86.ActiveCfg = Dev|x86
+		{A68F617F-595E-4FC4-96AC-93A36CCB3A4C}.Debug|x86.Build.0 = Dev|x86
+		{E18B683F-B255-4B63-A627-A85429650F73}.Debug|x86.ActiveCfg = Dev|x86
+		{E18B683F-B255-4B63-A627-A85429650F73}.Debug|x86.Build.0 = Dev|x86
+		{F0926EAB-40F8-4C6C-BE51-0364F14153E9}.Debug|x86.ActiveCfg = Dev|x86
+		{F0926EAB-40F8-4C6C-BE51-0364F14153E9}.Debug|x86.Build.0 = Dev|x86
+		{29683531-5E1B-4267-B187-81FDDFBF9816}.Debug|x86.ActiveCfg = Dev|x86
+		{29683531-5E1B-4267-B187-81FDDFBF9816}.Debug|x86.Build.0 = Dev|x86
+		{D4FCDA95-0FA5-40DB-8065-82EAA21BEB79}.Debug|x86.ActiveCfg = Dev|x86
+		{D4FCDA95-0FA5-40DB-8065-82EAA21BEB79}.Debug|x86.Build.0 = Dev|x86
+		{936BC41F-F0E1-43DA-B948-2CD884174113}.Debug|x86.ActiveCfg = Dev|x86
+		{936BC41F-F0E1-43DA-B948-2CD884174113}.Debug|x86.Build.0 = Dev|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D4FCDA95-0FA5-40DB-8065-82EAA21BEB79} = {388178F8-D042-4129-936A-73D56FA3C909}
+		{936BC41F-F0E1-43DA-B948-2CD884174113} = {45DEE601-D833-4AA2-B052-360B7FDEDD97}
+	EndGlobalSection
+EndGlobal
